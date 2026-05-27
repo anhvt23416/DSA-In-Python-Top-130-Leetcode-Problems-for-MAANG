@@ -1,24 +1,15 @@
-class Solution:
-    def maxProduct(self, nums: List[int]) -> int:
-        ans = 0
-        
-        if (len(nums) == 1):
-            return nums[0]
-        
-        currentProduct = 1
-        for elem in nums:
-            if (elem != 0):
-                currentProduct = currentProduct * elem
-                ans = max(ans, currentProduct)
-            else:
-                currentProduct = 1
-        
-        currentProduct = 1
-        for i in range(len(nums) - 1, -1, -1):
-            if nums[i] != 0:
-                currentProduct = currentProduct * nums[i]
-                ans = max(ans, currentProduct)
-            else:
-                currentProduct = 1
-            
-        return ans
+class Solution(object):
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        maxSofar = nums[0]
+        currMax = nums[0]
+        currMin = nums[0]
+        for i in range(1,len(nums)):
+            tempMax = max(nums[i], currMax*nums[i], currMin*nums[i])
+            currMin = min(nums[i], currMax*nums[i], currMin*nums[i])
+            currMax=tempMax
+            maxSofar=max(currMax, maxSofar)
+        return maxSofar
